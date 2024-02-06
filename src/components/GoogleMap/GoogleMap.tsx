@@ -13,20 +13,21 @@ function GoogleMap() {
 	const center = { lat: 54.898, lng: 23.904 };
 
 	const handleMapClick = (e: MapMouseEvent) => {
-		setPositions(prev => [
-			...prev,
-			{ lat: e.detail.latLng!.lat, lng: e.detail.latLng!.lng },
-		]);
+		const lat = e.detail.latLng!.lat;
+		const lng = e.detail.latLng!.lng;
+		setPositions(prev => [...prev, { lat, lng }]);
+
+		fetch(
+			`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`,
+		)
+			.then(response => response.json())
+			.then(data => console.log(data));
 	};
 
 	return (
 		<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-			<div className='map-container'>
-				<Map
-					center={center}
-					zoom={10}
-					disableDefaultUI
-					onClick={handleMapClick}>
+			<div className='map-container border rounded-xl overflow-hidden snap-center snap-always'>
+				<Map center={center} zoom={7} disableDefaultUI onClick={handleMapClick}>
 					{positions.length > 0 &&
 						positions.map((position, index) => (
 							<Marker
