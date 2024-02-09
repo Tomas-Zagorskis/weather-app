@@ -13,30 +13,64 @@ export default function Location({ data }: LocationProp) {
 		title: {
 			text: 'Weather Info',
 		},
+		chart: {
+			zooming: {
+				type: 'x',
+			},
+			backgroundColor: 'white',
+			type: 'area',
+		},
 		xAxis: {
-			categories: data.hourly.time.map(time => format(time, 'MM-dd HH:mm')),
+			categories: data.hourly.time.map(time =>
+				format(time, 'yyyy-MM-dd HH:mm'),
+			),
 			crosshair: true,
+		},
+		yAxis: {
+			title: {
+				text: '',
+			},
 		},
 		series: [
 			{
 				name: 'temperature',
 				type: 'line',
-				data: data.hourly.temperature.map(temp => +temp.toFixed(1)),
+				tooltip: {
+					valueDecimals: 1,
+					valueSuffix: ' °C',
+				},
+				marker: {
+					enabled: false,
+				},
+				data: data.hourly.temperature,
 			},
 			{
 				name: 'humidity',
 				type: 'line',
-				data: data.hourly.humidity.map(hum => +hum.toFixed(1)),
+				tooltip: {
+					valueSuffix: ' %',
+				},
+				marker: {
+					enabled: false,
+				},
+				data: data.hourly.humidity,
 			},
 			{
 				name: 'wind speed',
 				type: 'line',
-				data: data.hourly.windSpeed.map(wind => +wind.toFixed(1)),
+				tooltip: {
+					valueDecimals: 1,
+					valueSuffix: ' m/s',
+				},
+				marker: {
+					enabled: false,
+				},
+				data: data.hourly.windSpeed,
 			},
 		],
 	};
 	return (
-		<Card>
+		<Card className='min-w-[40rem]'>
 			<CardHeader>
 				<CardTitle>{data.locationName}</CardTitle>
 			</CardHeader>
