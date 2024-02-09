@@ -1,4 +1,5 @@
 import GoogleMap from './components/GoogleMap/GoogleMap';
+import Locations from './components/Locations/Locations';
 import Toolbar from './components/Toolbar/Toolbar';
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
 		<main className='flex flex-col justify-start items-center my-2 gap-5'>
 			<Toolbar />
 			<GoogleMap />
-			<div className='h-[200vh]'></div>
+			<Locations />
 		</main>
 	);
 }
