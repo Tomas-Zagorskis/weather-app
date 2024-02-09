@@ -24,6 +24,9 @@ export async function fetchWeather(
 	const hourly = response.hourly()!;
 
 	const weatherData = {
+		id: crypto.randomUUID(),
+		latitude: lat,
+		longitude: lon,
 		current: {
 			time: new Date(Number(current.time()) * 1000),
 			temperature: +current.variables(0)!.value().toFixed(1),
@@ -37,9 +40,9 @@ export async function fetchWeather(
 				Number(hourly.timeEnd()),
 				hourly.interval(),
 			).map(t => new Date((t - 2 * 60 * 60) * 1000)),
-			temperature: hourly.variables(0)!.valuesArray()!,
-			humidity: hourly.variables(1)!.valuesArray()!,
-			windSpeed: hourly.variables(1)!.valuesArray()!,
+			temperature: [...hourly.variables(0)!.valuesArray()!],
+			humidity: [...hourly.variables(1)!.valuesArray()!],
+			windSpeed: [...hourly.variables(2)!.valuesArray()!],
 		},
 	};
 
