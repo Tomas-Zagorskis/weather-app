@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { fetchWeather } from '@/lib/api';
 import {
@@ -6,24 +7,34 @@ import {
 	MapMouseEvent,
 	Marker,
 } from '@vis.gl/react-google-maps';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { fetchLocationName } from '@/lib/utils';
+import {
+	addLocationWeather,
+	removeLocationWeather,
+} from '@/feat/locationsWeather/locationsWeatherSlice';
 
 function GoogleMap() {
 	const date = useSelector((state: RootState) => state.dateRange);
-	const [positions, setPositions] = useState<{ lat: number; lng: number }[]>(
-		[],
-	);
+	const locations = useSelector((state: RootState) => state.locations);
+	const dispatch = useDispatch();
+
 	const center = { lat: 54.898, lng: 23.904 };
+	const positions = locations?.map(location => ({
+		id: location.id,
+		lat: location.latitude,
+		lng: location.longitude,
+	}));
 
 	const handleMapClick = async (e: MapMouseEvent) => {
 		const lat = e.detail.latLng!.lat;
 		const lng = e.detail.latLng!.lng;
-		setPositions(prev => [...prev, { lat, lng }]);
+
+		const locationName = await fetchLocationName(lat, lng);
 
 		const response = await fetchWeather(lat, lng, date);
+		const location = { ...response, locationName };
 
-		console.log(response);
+		dispatch(addLocationWeather(location));
 	};
 
 	return (
@@ -35,9 +46,7 @@ function GoogleMap() {
 							<Marker
 								key={index}
 								position={position}
-								onClick={() =>
-									setPositions(prev => prev.filter((_, i) => i !== index))
-								}
+								onClick={() => dispatch(removeLocationWeather(position.id))}
 							/>
 						))}
 				</Map>
