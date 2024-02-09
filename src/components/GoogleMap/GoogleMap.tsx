@@ -1,3 +1,5 @@
+import { RootState } from '@/app/store';
+import { fetchWeather } from '@/lib/api';
 import {
 	APIProvider,
 	Map,
@@ -5,23 +7,23 @@ import {
 	Marker,
 } from '@vis.gl/react-google-maps';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function GoogleMap() {
+	const date = useSelector((state: RootState) => state.dateRange);
 	const [positions, setPositions] = useState<{ lat: number; lng: number }[]>(
 		[],
 	);
 	const center = { lat: 54.898, lng: 23.904 };
 
-	const handleMapClick = (e: MapMouseEvent) => {
+	const handleMapClick = async (e: MapMouseEvent) => {
 		const lat = e.detail.latLng!.lat;
 		const lng = e.detail.latLng!.lng;
 		setPositions(prev => [...prev, { lat, lng }]);
 
-		fetch(
-			`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`,
-		)
-			.then(response => response.json())
-			.then(data => console.log(data));
+		const response = await fetchWeather(lat, lng, date);
+
+		console.log(response);
 	};
 
 	return (
