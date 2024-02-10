@@ -1,0 +1,33 @@
+type Weather = {
+	[key: number]: string;
+};
+export const weather: Weather = {
+	0: 'Clear sky',
+	1: 'Mostly clear',
+	2: 'Partly cloudy',
+	3: 'Overcast',
+	45: 'Fog and depositing rime fog',
+	48: 'Depositing rime fog',
+	51: 'Light drizzle',
+	53: 'Moderate drizzle',
+	55: 'Dense drizzle',
+	56: 'Light freezing drizzle',
+	57: 'Dense freezing drizzle',
+	61: 'Slight rain',
+	63: 'Moderate rain',
+	65: 'Heavy rain',
+	66: 'Light sleet',
+	67: 'Heavy sleet',
+	71: 'Light snow fall',
+	73: 'Moderate snow fall',
+	75: 'Heavy snow fall',
+	77: 'Snow grains',
+	80: 'Light rain showers',
+	81: 'Moderate rain showers',
+	82: 'Violent rain showers',
+	85: 'Light snow showers',
+	86: 'Moderate snow showers',
+	95: 'Light thunderstorm',
+	96: 'Violent thunderstorm',
+	99: 'Heavy thunderstorm',
+};
