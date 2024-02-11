@@ -44,6 +44,9 @@ export default function Location({ data }: LocationProp) {
 				text: '',
 			},
 		},
+		accessibility: {
+			enabled: false,
+		},
 		series: [
 			{
 				visible: isTemp.value,
