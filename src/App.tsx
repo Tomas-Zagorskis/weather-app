@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner';
 import GoogleMap from './components/GoogleMap/GoogleMap';
 import Locations from './components/Locations/Locations';
 import Toolbar from './components/Toolbar/Toolbar';
@@ -5,6 +6,7 @@ import Toolbar from './components/Toolbar/Toolbar';
 function App() {
 	return (
 		<main className='flex flex-col justify-start items-center my-2 gap-5'>
+			<Toaster position='bottom-right' richColors />
 			<h1 className='text-6xl mt-8 font-bold text-slate-600'>Weather App</h1>
 			<Toolbar />
 			<h2 className='text-2xl font-bold text-slate-600 -mb-4'>
