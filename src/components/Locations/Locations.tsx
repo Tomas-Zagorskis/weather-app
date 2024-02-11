@@ -5,7 +5,7 @@ import Location from './Location/Location';
 export default function Locations() {
 	const locations = useSelector((state: RootState) => state.locations);
 	return (
-		<div className='flex flex-col gap-6 mb-6'>
+		<div className='flex flex-col gap-6 my-10'>
 			{locations.map(location => (
 				<Location data={location} key={location.id} />
 			))}

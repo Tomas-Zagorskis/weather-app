@@ -39,7 +39,7 @@ function GoogleMap() {
 
 	return (
 		<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-			<div className='map-container border rounded-xl overflow-hidden snap-center snap-always'>
+			<div className='map-container border rounded-xl overflow-hidden'>
 				<Map center={center} zoom={7} disableDefaultUI onClick={handleMapClick}>
 					{positions.length > 0 &&
 						positions.map((position, index) => (

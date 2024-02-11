@@ -8,19 +8,21 @@ export function cn(...inputs: ClassValue[]) {
 export async function fetchLocationName(lat: number, lng: number) {
 	const fetchLocation = await fetch(
 		`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${
-			import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+			import.meta.env.VITE_GOOGLE_MAPS_API_KEYs
 		}`,
 	);
 
 	const locationResponse = await fetchLocation.json();
+	console.log(locationResponse);
 
-	let locationName = 'Unknown place';
+	const locationName = `Unknown place at 
+		latitude: ${lat.toFixed(3)}, longitude: ${lng.toFixed(3)}`;
 
-	if (locationResponse.status === 'OK') {
-		const location: string = locationResponse.plus_code.compound_code;
+	if (locationResponse.status !== 'OK') return locationName;
 
-		locationName = location.slice(location.indexOf(' ') + 1, location.length);
-	}
+	const location: string = locationResponse.plus_code.compound_code;
 
-	return locationName;
+	if (!location) return locationName;
+
+	return location.slice(location.indexOf(' ') + 1, location.length);
 }
