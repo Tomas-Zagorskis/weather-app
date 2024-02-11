@@ -7,16 +7,21 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import { XCircle } from 'lucide-react';
 import { WeatherData } from '@/types/types';
 import { format } from 'date-fns';
 import { isTemp, isHumidity, isWindSpeed } from '@/signals/signals';
 import { weather } from '@/lib/const';
+import { useDispatch } from 'react-redux';
+import { removeLocationWeather } from '@/feat/locationsWeather/locationsWeatherSlice';
 
 type LocationProp = {
 	data: WeatherData;
 };
 
 export default function Location({ data }: LocationProp) {
+	const dispatch = useDispatch();
+
 	const options: Highcharts.Options = {
 		title: {
 			text: 'Weather Info',
@@ -82,9 +87,13 @@ export default function Location({ data }: LocationProp) {
 	};
 
 	return (
-		<Card className='min-w-[40rem]'>
+		<Card className='relative min-w-[40rem]'>
+			<XCircle
+				className='absolute top-2 right-2 h-6 w-6 text-red-300 cursor-pointer hover:text-red-600 transition-all duration-300'
+				onClick={() => dispatch(removeLocationWeather(data.id))}
+			/>
 			<CardHeader>
-				<CardTitle className='text-slate-700 text-center'>
+				<CardTitle className='text-slate-700 text-center mt-2'>
 					{data.locationName}
 				</CardTitle>
 				<CardDescription className=' text-center'>
