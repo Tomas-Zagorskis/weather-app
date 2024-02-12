@@ -1,30 +1,41 @@
-# React + TypeScript + Vite
+# Weather app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The weather app is built using Vite, a fast development build tool for modern web development. It's a React app written in TypeScript, which provides static typing and other advanced features to the codebase. The app utilizes the OpenWeather API to fetch weather data and Google Maps API for location services.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Docker:
 
-## Expanding the ESLint configuration
+- Windows: Visit the Docker Desktop for Windows website (https://hub.docker.com/editions/community/docker-ce-desktop-windows) and follow the installation instructions provided.
+- macOS: Visit the Docker Desktop for Mac website (https://hub.docker.com/editions/community/docker-ce-desktop-mac) and follow the installation instructions provided.
+- Linux: Visit the Docker Engine installation documentation (https://docs.docker.com/engine/install/) for detailed installation instructions based on your Linux distribution.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+To launch the app, follow these steps:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Tomas-Zagorskis/weather-app.git
+   cd weather-app
+   ```
+2. Rename `.env.local.example` file and add values for variables.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+3. Launch the app:
+   1. Installing dependencies and run app:
+   ```bash
+   npm install
+   npm run dev
+   ```
+   2. Or running docker image:
+   ```bash
+   docker compose up -d
+   ```
+
+## Deployed website
+
+The app is deployed on Vercel and can be accessed at the following URL: https://weather-locations.vercel.app/
