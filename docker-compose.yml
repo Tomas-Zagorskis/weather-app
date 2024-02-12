@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  weather-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    container_name: weather-app-c
+    image: tomza23/weather-app:v1
+    command: npm run dev
+    restart: always
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - .env.local
+    ports:
+      - '5173:5173'
